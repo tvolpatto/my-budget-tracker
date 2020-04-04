@@ -3,7 +3,10 @@ const FILES_TO_CACHE = [
     '/index.html',
     '/index.js',
     '/styles.css',
-    '/db/db.js'
+    '/db/db.js',
+    '/icons/icon-192x192.png',
+    '/icons/icon-512x512.png'
+    
 ];
 
 const CACHE_NAME = "static-cache-v2";
@@ -13,12 +16,12 @@ const DATA_CACHE_NAME = "data-cache-v1";
 self.addEventListener("install", function(evt) {
   evt.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
-      console.log("Your files were pre-cached successfully!");
       cache.addAll(FILES_TO_CACHE).then(() => {
         self.skipWaiting()
       });
-    }),
+    }).catch(err => console.log(err))
   );
+  self.skipWaiting();
 });
 
 // activate
@@ -32,7 +35,7 @@ self.addEventListener("activate", function(evt) {
             }
           })
         );
-      })
+      }).catch(err => console.log(err))
     );
   
     self.clients.claim();
@@ -59,7 +62,7 @@ self.addEventListener("fetch", function(evt) {
               return cache.match(evt.request);
             });
         })
-        .catch(err => console.log(err)),
+        .catch(err => console.log(err))
     );
 
     return;
@@ -69,6 +72,6 @@ self.addEventListener("fetch", function(evt) {
       return cache.match(evt.request).then(response => {
         return response || fetch(evt.request);
       });
-    }),
+    }).catch(err => console.log(err))
   );
 });

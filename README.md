@@ -15,7 +15,7 @@ The user is able to add expenses and deposits to their budget with or without a 
 
  The application is deployed on [Heroku](https://www.heroku.com/home).
 
- [Click here](#) to access it.
+ [Click here](https://my-budget-tracker-2000.herokuapp.com/) to access it.
 
  ## Running locally
 
